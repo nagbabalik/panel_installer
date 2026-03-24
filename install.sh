@@ -1,11 +1,23 @@
 #!/bin/bash
 set -e
-chmod +x ./core.sh ./panel.sh ./api.sh ./vps.sh
+
+BASE="https://raw.githubusercontent.com/nagbabalik/panel_installer/main"
+
+echo "Downloading installer files..."
+
+curl -O $BASE/core.sh
+curl -O $BASE/panel.sh
+curl -O $BASE/api.sh
+curl -O $BASE/vps.sh
+
+chmod +x *.sh
+
+echo "Running installer..."
+
 ./core.sh
 ./panel.sh
 ./api.sh
 ./vps.sh
-
 cat > /etc/nginx/sites-available/vpn-panel <<'NGINX'
 server {
   listen 80 default_server;
